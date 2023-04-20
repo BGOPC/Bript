@@ -4,6 +4,6 @@ This is a basic programming language with the minimalist arithmetics and some ba
 
 made by bgopc
 
-continuation from [PePc](https://github.com/petranol/PePCscript)
+continuation from [PePc](https://github.com/petranol/PePCscript). (total restart)
 
 ![1681923331844](image/README/1681923331844.png)
