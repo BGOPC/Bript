@@ -39,4 +39,7 @@ public class Token {
             };
         }
     }
+    public String toString() {
+        return this.tokenType.toString() + ":" + this.value;
+    }
 }
