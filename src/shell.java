@@ -6,14 +6,20 @@ public class shell {
     public static Scanner prompt = new Scanner(System.in);
 
     public static void main(String[] args) {
-        System.out.print("Command !#> ");
-        String command = prompt.nextLine();
-        Tokenizer commandTokenizer = new Tokenizer(command);
-        ArrayList<Token> Tokenized = commandTokenizer.Tokenize();
-        String output = "[ ";
-        for (Token token : Tokenized) {
-            output += token.toString() + ", ";
+        String command = "";
+        while (!command.equals("EOF")) {
+            System.out.print("Command !#> ");
+            command = prompt.nextLine();
+            if (!command.equals("EOF")) {
+                Tokenizer commandTokenizer = new Tokenizer(command);
+                ArrayList<Token> Tokenized = commandTokenizer.Tokenize();
+                String output = "[ ";
+                for (Token token : Tokenized) {
+                    output += token.toString() + ", ";
+                }
+                System.out.println(output + "]");
+            }
         }
-        System.out.println(output+"]");
+        System.out.println("Bye");
     }
 }
