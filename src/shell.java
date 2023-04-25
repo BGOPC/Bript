@@ -1,7 +1,7 @@
 package src;
 import java.util.Scanner;
 import java.util.ArrayList;
-import src.Interpreter.*;
+import src.Tokenize.*;
 public class shell {
     public static Scanner prompt = new Scanner(System.in);
 

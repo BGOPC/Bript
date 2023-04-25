@@ -1,4 +1,4 @@
-package src.Interpreter;
+package src.Tokenize;
 
 import java.util.ArrayList;
 

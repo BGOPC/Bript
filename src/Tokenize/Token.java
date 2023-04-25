@@ -1,4 +1,4 @@
-package src.Interpreter;
+package src.Tokenize;
 
 public class Token {
     public tokenTypes tokenType;
