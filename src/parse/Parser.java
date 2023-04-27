@@ -14,7 +14,7 @@ public class Parser {
         this.idx = 0;
         this.currentToken =  tokens.get(this.idx);
     }
-    public ArrayList<Token> getTokens() {
+    public ArrayList<Token> ParseTokens() {
         return new ArrayList<Token>();
     }
 
