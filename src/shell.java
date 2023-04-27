@@ -5,7 +5,7 @@ import src.Tokenize.*;
 public class shell {
     public static Scanner prompt = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         String command = "";
         while (!command.equals("EOF")) {
             System.out.print("Command !#> ");

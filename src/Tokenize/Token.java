@@ -1,11 +1,15 @@
 package src.Tokenize;
 
+import java.util.IllegalFormatCodePointException;
+import java.util.concurrent.ExecutionException;
+
 public class Token {
     public tokenTypes tokenType;
     public String value;
     enum tokenTypes {
         SPACE,
-        DIGITS,
+        INTEGER,
+        FLOAT,
         LETTER,
         LeftParenthesis,
         RightParenthesis,
@@ -21,9 +25,24 @@ public class Token {
         this.tokenType = tokenType;
         this.value = value;
     }
-    public static tokenTypes getTokenType(String value) throws IllegalArgumentException {
+    public static tokenTypes getNumberType(String Number) throws Exception {
+        int DotCount = 0;
+        for (Character Digit : Number.toCharArray()){
+            if (Digit == '.'){
+                DotCount++;
+            }
+            if (DotCount > 1){
+                throw new Exception("Invalid Number");
+            }
+        }
+        if (DotCount == 1){
+            return tokenTypes.FLOAT;
+        }
+        return tokenTypes.INTEGER;
+    }
+    public static tokenTypes getTokenType(String value) throws Exception {
         if ("0123456789".contains(value)) {
-            return tokenTypes.DIGITS;
+            return getNumberType(value);
         } else if ("abcdefghijklmnopqrstuvwxyz".contains(value.toLowerCase())) {
             return tokenTypes.LETTER;
         } else {

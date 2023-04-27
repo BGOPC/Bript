@@ -9,12 +9,12 @@ public class Tokenizer {
         this.commands = commands;
         this.charCount = 0;
     }
-    public Token.tokenTypes advance(String value) {
+    public Token.tokenTypes advance(String value) throws Exception {
         Token.tokenTypes type = Token.getTokenType(value);
         this.charCount++;
         return type;
     }
-    public ArrayList<Token> Tokenize(){
+    public ArrayList<Token> Tokenize() throws Exception {
         ArrayList<Token> tokens = new ArrayList<Token>();
         for (char token : this.commands.toCharArray()) {
             if (!(String.valueOf(token).equals(" ") || String.valueOf(token).equals("\n"))) {
