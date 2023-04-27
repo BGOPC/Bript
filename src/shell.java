@@ -13,9 +13,9 @@ public class shell {
             if (!command.equals("EOF")) {
                 Tokenizer commandTokenizer = new Tokenizer(command);
                 ArrayList<Token> Tokenized = commandTokenizer.Tokenize();
-                String output = "[ ";
+                StringBuilder output = new StringBuilder("[ ");
                 for (Token token : Tokenized) {
-                    output += token.toString() + ", ";
+                    output.append(token.toString()).append(", ");
                 }
                 System.out.println(output + "]");
             }

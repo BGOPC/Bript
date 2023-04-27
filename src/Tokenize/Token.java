@@ -25,23 +25,18 @@ public class Token {
         this.tokenType = tokenType;
         this.value = value;
     }
-    public static tokenTypes getNumberType(String Number) throws Exception {
+    public static tokenTypes getNumberType(String Number) {
         int DotCount = 0;
-        for (Character Digit : Number.toCharArray()){
-            if (Digit == '.'){
-                DotCount++;
-            }
-            if (DotCount > 1){
-                throw new Exception("Invalid Number");
-            }
+        for (int i = 0; i < Number.length(); i++) {
+            if (Number.charAt(i) == '.') { DotCount++; }
         }
         if (DotCount == 1){
             return tokenTypes.FLOAT;
         }
         return tokenTypes.INTEGER;
     }
-    public static tokenTypes getTokenType(String value) throws Exception {
-        if ("0123456789".contains(value)) {
+    public static tokenTypes getTokenType(String value) {
+        if ("0123456789.".contains(value)) {
             return getNumberType(value);
         } else if ("abcdefghijklmnopqrstuvwxyz".contains(value.toLowerCase())) {
             return tokenTypes.LETTER;
