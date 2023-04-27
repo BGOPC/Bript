@@ -16,6 +16,7 @@ class StringTokenIndexPair {
     public String getString() {
         return string;
     }
+
     public int getIndex() {
         return idx;
     }
@@ -46,25 +47,28 @@ public class Tokenizer {
         int dc = 0;
         boolean runNumber = true;
         while (runNumber) {
-            switch (Token.getTokenType(String.valueOf(this.commands.charAt(idx+1)))){
-                case INTEGER:
-                    Number.append(String.valueOf(this.commands.charAt(idx + 1)));
-                    break;
-                case FLOAT:
-                    Number.append(String.valueOf(this.commands.charAt(idx + 1)));
-                    dc++;
-                    if (dc > 1){
+            if (this.commands.length() > idx + 1) {
+                switch (Token.getTokenType(String.valueOf(this.commands.charAt(idx + 1)))) {
+                    case INTEGER:
+                        Number.append(String.valueOf(this.commands.charAt(idx + 1)));
+                        break;
+                    case FLOAT:
+                        Number.append(String.valueOf(this.commands.charAt(idx + 1)));
+                        dc++;
+                        if (dc > 1) {
+                            runNumber = false;
+                            throw new IllegalArgumentException("Invalid Number");
+                        }
+                        break;
+                    default:
                         runNumber = false;
-                        throw new IllegalArgumentException("Invalid Number");
-                    }
-                    break;
-                default:
-                    runNumber = false;
-                    break;
-            }
-            idx++;
+//                        idx--;
+                        break;
+                }
+                if (runNumber) idx++;
+            } else break;
         }
-        Token.tokenTypes type = (dc == 1) ? Token.tokenTypes.INTEGER : Token.tokenTypes.FLOAT;
+        Token.tokenTypes type = (dc != 1) ? Token.tokenTypes.INTEGER : Token.tokenTypes.FLOAT;
         String StringNumber = Number.toString();
         return new StringTokenIndexPair(StringNumber, type, idx);
     }
