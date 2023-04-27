@@ -7,11 +7,11 @@ class StringTokenIndexPair {
     private int idx;
     private Token.tokenTypes tokenType;
 
-    public StringTokenIndexPair(String string, Token.tokenTypes tokenType) {
+    public StringTokenIndexPair(String string, Token.tokenTypes tokenType, int idx) {
         this.string = string;
         this.tokenType = tokenType;
+        this.idx = idx;
     }
-    public StringTokenIndexPair(){}
 
     public String getString() {
         return string;
@@ -41,7 +41,32 @@ public class Tokenizer {
     }
 
     public StringTokenIndexPair TokensToNumberToken(int idx) {
-        return new StringTokenIndexPair();
+        char currentToken = this.commands.charAt(idx);
+        StringBuilder Number = new StringBuilder(String.valueOf(currentToken));
+        int dc = 0;
+        boolean runNumber = true;
+        while (runNumber) {
+            switch (Token.getTokenType(String.valueOf(this.commands.charAt(idx+1)))){
+                case INTEGER:
+                    Number.append(String.valueOf(this.commands.charAt(idx + 1)));
+                    break;
+                case FLOAT:
+                    Number.append(String.valueOf(this.commands.charAt(idx + 1)));
+                    dc++;
+                    if (dc > 1){
+                        runNumber = false;
+                        throw new IllegalArgumentException("Invalid Number");
+                    }
+                    break;
+                default:
+                    runNumber = false;
+                    break;
+            }
+            idx++;
+        }
+        Token.tokenTypes type = (dc == 1) ? Token.tokenTypes.INTEGER : Token.tokenTypes.FLOAT;
+        String StringNumber = Number.toString();
+        return new StringTokenIndexPair(StringNumber, type, idx);
     }
 
     public ArrayList<Token> Tokenize() throws Exception {
@@ -61,7 +86,7 @@ public class Tokenizer {
                 Token currentToken = new Token(type, tokenString);
                 tokens.add(currentToken);
             }
-            i++; // Increment the index
+            i++;
         }
         return tokens;
     }
