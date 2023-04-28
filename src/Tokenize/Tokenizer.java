@@ -62,7 +62,6 @@ public class Tokenizer {
                         break;
                     default:
                         runNumber = false;
-//                        idx--;
                         break;
                 }
                 if (runNumber) idx++;
