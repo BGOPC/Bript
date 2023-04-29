@@ -30,8 +30,7 @@ public class shell {
             ArrayList<Token> Tokenized = commandTokenizer.Tokenize();
             Parser TokenizedParser = new Parser(Tokenized);
             ArrayList<Object> ParsedTokens = TokenizedParser.ParseTokens();
-            Stream<Object> ParsedTokensStream = yieldNestedList(ParsedTokens);
-            ParsedTokensStream.forEach(System.out::println);
+            System.out.println(ParsedTokens);
         }
     }
 }

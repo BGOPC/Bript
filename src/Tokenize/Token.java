@@ -1,12 +1,10 @@
 package src.Tokenize;
 
-import java.util.IllegalFormatCodePointException;
-import java.util.concurrent.ExecutionException;
-
 public class Token {
     public tokenTypes tokenType;
     public String value;
-    enum tokenTypes {
+
+    public enum tokenTypes {
         SPACE,
         INTEGER,
         FLOAT,
@@ -18,23 +16,29 @@ public class Token {
         MULTIPLY,
         DIVIDE,
     }
+
     public Token(tokenTypes tokenType) {
         this.tokenType = tokenType;
     }
+
     public Token(tokenTypes tokenType, String value) {
         this.tokenType = tokenType;
         this.value = value;
     }
+
     public static tokenTypes getNumberType(String Number) {
         int DotCount = 0;
         for (int i = 0; i < Number.length(); i++) {
-            if (Number.charAt(i) == '.') { DotCount++; }
+            if (Number.charAt(i) == '.') {
+                DotCount++;
+            }
         }
-        if (DotCount == 1){
+        if (DotCount == 1) {
             return tokenTypes.FLOAT;
         }
         return tokenTypes.INTEGER;
     }
+
     public static tokenTypes getTokenType(String value) {
         if ("0123456789.".contains(value)) {
             return getNumberType(value);
@@ -53,6 +57,7 @@ public class Token {
             };
         }
     }
+
     public String toString() {
         return this.tokenType.toString() + ":" + this.value;
     }
