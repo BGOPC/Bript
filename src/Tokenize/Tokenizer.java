@@ -49,20 +49,16 @@ public class Tokenizer {
         while (runNumber) {
             if (this.commands.length() > idx + 1) {
                 switch (Token.getTokenType(String.valueOf(this.commands.charAt(idx + 1)))) {
-                    case INTEGER:
-                        Number.append(String.valueOf(this.commands.charAt(idx + 1)));
-                        break;
-                    case FLOAT:
+                    case INTEGER -> Number.append(String.valueOf(this.commands.charAt(idx + 1)));
+                    case FLOAT -> {
                         Number.append(String.valueOf(this.commands.charAt(idx + 1)));
                         dc++;
                         if (dc > 1) {
                             runNumber = false;
                             throw new IllegalArgumentException("Invalid Number");
                         }
-                        break;
-                    default:
-                        runNumber = false;
-                        break;
+                    }
+                    default -> runNumber = false;
                 }
                 if (runNumber) idx++;
             } else break;
