@@ -15,7 +15,7 @@ public class Parser {
         this.currentToken =  tokens.get(this.idx);
     }
     public ArrayList<Object> ParseTokens() throws Exception {
-        ArrayList<Object> result = new ArrayList<Object>();
+        ArrayList<Object> result = new ArrayList<>();
 
         while (this.idx < this.tokens.size()) {
             Token token = this.currentToken;
@@ -34,7 +34,7 @@ public class Parser {
                     System.out.println("Index out of bounds: " + e.getMessage());
                 }
 
-                ArrayList<Object> nestedResult = new ArrayList<Object>();
+                ArrayList<Object> nestedResult = new ArrayList<>();
                 while (this.currentToken.tokenType != Token.tokenTypes.RightParenthesis) {
                     nestedResult.add(this.ParseTokens());
                     this.currentToken = this.tokens.get(this.idx);
