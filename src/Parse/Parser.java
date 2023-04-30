@@ -1,4 +1,4 @@
-package src.parse;
+package src.Parse;
 
 import src.Tokenize.Token;
 
