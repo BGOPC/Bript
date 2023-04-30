@@ -14,7 +14,7 @@ public class Interpreter {
         this.currentToken = null;
     }
 
-    public String interpret() throws Exception {
+    public String Interpret() throws Exception {
         this.advance();
         double result = this.expr();
         return Double.toString(result);

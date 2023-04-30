@@ -19,7 +19,7 @@ public class shell {
             Parser TokenizedParser = new Parser(Tokenized);
             ArrayList<Object> ParsedTokens = TokenizedParser.ParseTokens();
             Interpreter commandsInterpreter = new Interpreter(ParsedTokens);
-//            String Interpreted = commandsInterpreter.Interpret(); // String is not permanent
+            String Interpreted = commandsInterpreter.Interpret(); // String is not permanent
             System.out.println(ParsedTokens);
 
         }
