@@ -4,7 +4,7 @@ import java.util.Scanner;
 import java.util.ArrayList;
 
 import src.Tokenize.*;
-import src.Parse.Parser;
+import src.Parse.*;
 import src.Interpreter.Interpreter;
 
 public class shell {
