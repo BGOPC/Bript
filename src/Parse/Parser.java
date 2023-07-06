@@ -12,48 +12,63 @@ public class Parser {
     public Parser(ArrayList<Token> tokens) {
         this.tokens = tokens;
         this.idx = 0;
-        this.currentToken =  tokens.get(this.idx);
+        this.currentToken = this.tokens.get(this.idx);
     }
-    public ArrayList<Object> ParseTokens() throws Exception {
-        ArrayList<Object> result = new ArrayList<>();
 
-        while (this.idx < this.tokens.size()) {
-            Token token = this.currentToken;
-
-            if (token.tokenType == Token.tokenTypes.INTEGER) {
-                result.add(token);
-                this.idx++;
-            } else if (token.tokenType == Token.tokenTypes.PLUS || token.tokenType == Token.tokenTypes.MINUS || token.tokenType == Token.tokenTypes.MULTIPLY) {
-                result.add(token);
-                this.idx++;
-            } else if (token.tokenType == Token.tokenTypes.LeftParenthesis) {
-                this.idx++;
-                try {
-                    this.currentToken = this.tokens.get(this.idx);
-                } catch (IndexOutOfBoundsException e) {
-                    System.out.println("Index out of bounds: " + e.getMessage());
-                }
-
-                ArrayList<Object> nestedResult = new ArrayList<>();
-                while (this.currentToken.tokenType != Token.tokenTypes.RightParenthesis) {
-                    nestedResult.add(this.ParseTokens());
-                    this.currentToken = this.tokens.get(this.idx);
-                }
-
-                result.add(nestedResult);
-                this.idx++;
-            } else if (token.tokenType == Token.tokenTypes.RightParenthesis) {
-                break;
-            } else {
-                throw new Exception("Invalid token");
-            }
-
-            if (this.idx < this.tokens.size()) {
-                this.currentToken = this.tokens.get(this.idx);
-            }
+    public void advance() {
+        this.idx++;
+        if (this.idx < this.tokens.size()) {
+            this.currentToken = this.tokens.get(this.idx);
         }
-
-        return result;
     }
 
+    public ArrayList<Object> stackBuilder() {
+        ArrayList<Object> stack = new ArrayList<Object>();
+        this.advance();
+        while (currentToken.tokenType != Token.tokenTypes.RightParenthesis) {
+            if (currentToken.tokenType == Token.tokenTypes.LeftParenthesis) {
+                ArrayList<Object> miniStack = this.stackBuilder();
+                stack.add(miniStack);
+            }
+            if (currentToken.tokenType != Token.tokenTypes.RightParenthesis) {
+                stack.add(currentToken);
+            }
+            this.advance();
+        }
+        this.advance();
+        return stack;
+    }
+
+    public ArrayList<Object> parse() {
+        ArrayList<Object> parsedTokens = new ArrayList<Object>();
+        if (!stackValidator()) {
+            System.out.println("Parsing Error");
+            System.exit(0); // Temporary: Customized errors will be added
+        }
+        do {
+            if (currentToken.tokenType == Token.tokenTypes.LeftParenthesis) parsedTokens.add(stackBuilder());
+            if (currentToken.tokenType != Token.tokenTypes.RightParenthesis) {
+                parsedTokens.add(currentToken);
+            }
+            this.advance();
+        } while (this.idx < this.tokens.size());
+        return parsedTokens;
+    }
+
+    public boolean stackValidator() {
+        int leftCount = 0;
+        int rightCount = 0;
+        for (Token token : this.tokens) {
+            if (token.tokenType == Token.tokenTypes.LeftParenthesis) leftCount++;
+            if (token.tokenType == Token.tokenTypes.RightParenthesis) rightCount++;
+        }
+        boolean countValidator = leftCount == rightCount;
+        assert countValidator;
+        for (int i = 0; i < this.tokens.size(); i++){
+            if (this.tokens.get(i).tokenType == Token.tokenTypes.LeftParenthesis)
+                if (this.tokens.get(i+1).tokenType == Token.tokenTypes.RightParenthesis)
+                    return false;
+        }
+        return true;
+    }
 }

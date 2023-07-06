@@ -38,12 +38,6 @@ public class Token {
         }
         return tokenTypes.INTEGER;
     }
-    public tokenTypes getType() {
-        return this.tokenType;
-    }
-    public String getValue() {
-        return this.value;
-    }
 
     public static tokenTypes getTokenType(String value) {
         if ("0123456789.".contains(value)) {

@@ -7,3 +7,4 @@ src/**/*.class
 src/**/**/*.class
 src/**/**/**/*.class
 Bripts.iml
+out
