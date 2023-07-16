@@ -1,6 +1,7 @@
 package src.utils.Nodes;
 
 import src.Tokenize.Token;
+import src.utils.Errors.BaseError;
 
 public class BinaryOperationNode<T, U> {
     public T lhs;
@@ -13,7 +14,7 @@ public class BinaryOperationNode<T, U> {
         this.rhs = rhs;
     }
 
-    public NumberNode evaluate() {
+    public NumberNode evaluate() throws BaseError {
         if (this.lhs instanceof NumberNode && this.rhs instanceof NumberNode) {
             return calculate((NumberNode) this.lhs, (NumberNode) this.rhs, this.operator);
         } else if (this.lhs instanceof NumberNode && this.rhs instanceof BinaryOperationNode) {
@@ -26,7 +27,7 @@ public class BinaryOperationNode<T, U> {
             this.rhs = this.rhs.evaluate();
             this.lhs = this.lhs.evaluate();
             return calculate((NumberNode) this.lhs, (NumberNode) this.rhs, this.operator);
-        } else return null;
+        } else throw new BaseError("Unknown Type", "");
     }
 
     public NumberNode calculate(NumberNode LHS, NumberNode RHS, Token operator) {
