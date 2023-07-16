@@ -1,13 +1,8 @@
 package src.utils.Errors;
 
-public class ParseExceptions {
-    public String message;
-    public ParseExceptions(String title, String message){
-        this.message = message;
+public class ParseExceptions extends BaseError{
+    public ParseExceptions(String message){
+        super("ParseException", message);
         this.log();
-    }
-    public void log(){
-        System.out.println("ParseError: " + this.message);
-        System.exit(0);
     }
 }

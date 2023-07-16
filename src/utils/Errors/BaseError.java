@@ -1,9 +1,9 @@
 package src.utils.Errors;
 
-public class Error {
+public class BaseError extends Throwable {
     public String title;
     public String message;
-    public Error(String title, String message){
+    public BaseError(String title, String message){
         this.title = title;
         this.message = message;
         this.log();
