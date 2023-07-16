@@ -3,29 +3,29 @@ package src.utils.Nodes;
 import src.Tokenize.Token;
 
 public class BinaryOperationNode<T, U> {
-    public T LHS;
-    public U RHS;
+    public T lhs;
+    public U rhs;
     public Token operator;
 
-    public BinaryOperationNode(T LHS, U RHS, Token operator) {
+    public BinaryOperationNode(T lhs, U rhs, Token operator) {
         this.operator = operator;
-        this.LHS = LHS;
-        this.RHS = RHS;
+        this.lhs = lhs;
+        this.rhs = rhs;
     }
 
     public NumberNode evaluate() {
-        if (this.LHS instanceof NumberNode && this.RHS instanceof NumberNode) {
-            return calculate((NumberNode) this.LHS, (NumberNode) this.RHS, this.operator);
-        } else if (this.LHS instanceof NumberNode && this.RHS instanceof BinaryOperationNode) {
-            this.RHS = this.RHS.evaluate();
-            return calculate((NumberNode) this.LHS, (NumberNode) this.RHS, this.operator);
-        } else if (this.LHS instanceof BinaryOperationNode && this.RHS instanceof NumberNode) {
-            this.LHS = this.LHS.evaluate();
-            return calculate((NumberNode) this.LHS, (NumberNode) this.RHS, this.operator);
-        } else if (this.RHS instanceof BinaryOperationNode && this.LHS instanceof BinaryOperationNode) {
-            this.RHS = this.RHS.evaluate();
-            this.LHS = this.LHS.evaluate();
-            return calculate((NumberNode) this.LHS, (NumberNode) this.RHS, this.operator);
+        if (this.lhs instanceof NumberNode && this.rhs instanceof NumberNode) {
+            return calculate((NumberNode) this.lhs, (NumberNode) this.rhs, this.operator);
+        } else if (this.lhs instanceof NumberNode && this.rhs instanceof BinaryOperationNode) {
+            this.rhs = this.rhs.evaluate();
+            return calculate((NumberNode) this.lhs, (NumberNode) this.rhs, this.operator);
+        } else if (this.lhs instanceof BinaryOperationNode && this.rhs instanceof NumberNode) {
+            this.lhs = this.lhs.evaluate();
+            return calculate((NumberNode) this.lhs, (NumberNode) this.rhs, this.operator);
+        } else if (this.rhs instanceof BinaryOperationNode && this.lhs instanceof BinaryOperationNode) {
+            this.rhs = this.rhs.evaluate();
+            this.lhs = this.lhs.evaluate();
+            return calculate((NumberNode) this.lhs, (NumberNode) this.rhs, this.operator);
         } else return null;
     }
 
