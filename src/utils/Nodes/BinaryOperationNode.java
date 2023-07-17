@@ -18,15 +18,15 @@ public class BinaryOperationNode<T, U> {
         if (this.lhs instanceof NumberNode && this.rhs instanceof NumberNode) {
             return calculate((NumberNode) this.lhs, (NumberNode) this.rhs, this.operator);
         } else if (this.lhs instanceof NumberNode && this.rhs instanceof BinaryOperationNode) {
-            this.rhs = this.rhs.evaluate();
-            return calculate((NumberNode) this.lhs, (NumberNode) this.rhs, this.operator);
+            Object rhsNode = this.rhs.evaluate();
+            return calculate((NumberNode) this.lhs, (NumberNode) rhsNode, this.operator);
         } else if (this.lhs instanceof BinaryOperationNode && this.rhs instanceof NumberNode) {
-            this.lhs = this.lhs.evaluate();
-            return calculate((NumberNode) this.lhs, (NumberNode) this.rhs, this.operator);
+            Object lhsNode = this.lhs.evaluate();
+            return calculate((NumberNode) lhsNode, (NumberNode) this.rhs, this.operator);
         } else if (this.rhs instanceof BinaryOperationNode && this.lhs instanceof BinaryOperationNode) {
-            this.rhs = this.rhs.evaluate();
-            this.lhs = this.lhs.evaluate();
-            return calculate((NumberNode) this.lhs, (NumberNode) this.rhs, this.operator);
+            Object rhsNode = this.rhs.evaluate();
+            Object lhsNode = this.lhs.evaluate();
+            return calculate((NumberNode) lhsNode, (NumberNode) rhsNode, this.operator);
         } else throw new BaseError("Unknown Type", "");
     }
 
