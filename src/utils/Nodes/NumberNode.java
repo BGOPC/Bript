@@ -1,6 +1,6 @@
 package src.utils.Nodes;
 
-public class NumberNode {
+public class NumberNode extends BaseNode {
     public int value;
 
     public NumberNode(int value) {
